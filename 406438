@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HerWet - Choose Your Experience</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #111; color: white; padding-top: 50px; }
+        .btn { display: block; width: 250px; margin: 20px auto; padding: 20px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.2em; }
+        .cam-btn { background: #ff4757; color: white; }
+        .ai-btn { background: #546de5; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to HerWet</h1>
+    <p>Select your experience:</p>
+    <a href="YOUR_CAM_LINK" class="btn cam-btn">📸 LIVE CAMS</a>
+    <a href="YOUR_AI_LINK" class="btn ai-btn">🤖 AI COMPANIONS</a>
+</body>
+</html>
