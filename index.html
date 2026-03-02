@@ -3,134 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Her Wet Pussy | Premium AI & Cams</title>
+    <title>Exclusive Interactive Access | Premium Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --accent-red: #ff4757;
-            --accent-blue: #546de5;
-            --accent-purple: #6c5ce7;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-        }
-
-        body, html {
-            height: 100%;
-            margin: 0;
-            background-color: #050505;
-            background-image: radial-gradient(circle at 50% -20%, #1a1a1a 0%, #050505 80%);
-            color: #fff;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .main-card {
-            width: 100%;
-            max-width: 420px;
-            padding: 40px 25px;
-            text-align: center;
-            border-radius: 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .logo-section img {
-            width: 100%;
-            max-width: 280px;
-            height: auto;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
-        }
-
-        .btn-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .btn {
-            position: relative;
-            padding: 22px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-        }
-
-        .cam { 
-            background: linear-gradient(135deg, var(--accent-red), #b33939); 
-            color: #fff;
-            box-shadow: 0 10px 20px -5px rgba(255, 71, 87, 0.4);
-        }
-
-        .ai-candy { 
-            background: linear-gradient(135deg, var(--accent-blue), #3c40c6); 
-            color: #fff;
-            box-shadow: 0 10px 20px -5px rgba(84, 109, 229, 0.4);
-        }
-
-        .premium-ai { 
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-5px) scale(1.02);
-            filter: brightness(1.1);
-            box-shadow: 0 20px 30px -10px rgba(255, 255, 255, 0.1);
-        }
-
-        .btn:active { transform: scale(0.98); }
-
-        .trust-footer {
-            margin-top: 35px;
-            font-size: 0.7rem;
-            color: #555;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* Ambient Glow in background */
-        .glow {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: var(--accent-blue);
-            filter: blur(150px);
-            opacity: 0.05;
-            z-index: -1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0e0e0f; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .neon-glow { box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
+        .loading-font { font-family: 'JetBrains+Mono', monospace; }
+        @keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .pulse { animation: pulse-slow 2s infinite; }
     </style>
 </head>
-<body>
-    <div class="glow"></div>
-    
-    <div class="main-card">
-        <div class="logo-section">
-            <img src="og-image.jpg" alt="HER WET PUSSY">
-        </div>
+<body class="overflow-x-hidden">
 
-        <div class="btn-stack">
-            <a href="https://t.ajrkmx1.com/406438/6224/0?aff_sub5=SF_006OG000004lmDN" class="btn cam">🔥 Live Cams</a>
-            <a href="https://t.mbjms.com/406438/9403/0?aff_sub5=SF_006OG000004lmDN" class="btn ai-candy">🤖 Candy AI Chat</a>
-            <a href="https://t.ajrkmx1.com/406438/6224/0?aff_sub5=SF_006OG000004lmDN" class="btn premium-ai">✨ Premium AI</a>
-        </div>
+    <div id="loading-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0e0e0f] hidden">
+        <div class="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-6"></div>
+        <div id="loading-text" class="loading-font text-sm text-purple-400 text-center px-6 uppercase tracking-tighter">Initializing Secure Handshake...</div>
+    </div>
 
-        <div class="trust-footer">
-            Encrypted • Anonymous • 18+ Only
+    <main class="max-w-md mx-auto px-6 pt-12 pb-32">
+        
+        <header class="text-center mb-10">
+            <div class="inline-flex items-center gap-2 mb-4">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-[10px] uppercase tracking-widest text-gray-400">System Status: Online</span>
+            </div>
+            <h1 class="text-3xl font-bold tracking-tight mb-2">Access Restricted</h1>
+            <p class="text-gray-400 text-sm">Premium Interactive Portal. 18+ Only.</p>
+        </header>
+
+        <section class="glass rounded-3xl p-1 mb-8 overflow-hidden">
+            <div class="relative h-64 bg-gray-900 rounded-[22px] flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0f] to-transparent z-10"></div>
+                <img src="https://via.placeholder.com/600x400/0e0e0f/333?text=PREMIUM+ACCESS" alt="Hero" class="object-cover w-full h-full opacity-40 blur-sm">
+                <div class="relative z-20 text-center px-4">
+                    <h2 class="text-xl font-bold mb-4">Exclusive Private Sessions</h2>
+                    <button onclick="triggerRedirect('CRAK', 'hero_main')" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-full transition-all neon-glow uppercase text-sm tracking-widest">
+                        Unlock Access
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-6 px-2">Active Sessions</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div onclick="triggerRedirect('CRAK', 'grid_cam_1')" class="glass rounded-2xl p-2 cursor-pointer group hover:border-purple-500/50 transition-colors">
+                    <div class="relative h-32 bg-gray-800 rounded-xl mb-3 overflow-hidden">
+                        <span class="absolute top-2 left-2 bg-red-600 text-[8px] font-bold px-2 py-0.5 rounded-sm z-10 flex items-center gap-1">
+                            <span class="w-1 h-1 bg-white rounded-full animate-pulse"></span> LIVE
+                        </span>
+                        <img src="https://via.placeholder.com/200x200/1a1a1a/444?text=SESSION+1" class="w-full h-full object-cover blur-md group-hover:scale-110 transition-transform">
+                    </div>
+                    <div class="text-[10px] font-bold text-center text-gray-300 uppercase tracking-tighter">Watch Private</div>
+                </div>
+                <div onclick="triggerRedirect('CANDY', 'grid_ai_1')" class="glass rounded-2xl p-2 cursor-pointer group hover:border-blue-500/50 transition-colors">
+                    <div class="relative h-32 bg-gray-800 rounded-xl mb-3 overflow-hidden">
+                        <span class="absolute top-2 left-2 bg-blue-600 text-[8px] font-bold px-2 py-0.5 rounded-sm z-10">AI CHAT</span>
+                        <img src="https://via.placeholder.com/200x200/1a1a1a/444?text=AI+COMPANION" class="w-full h-full object-cover blur-md group-hover:scale-110 transition-transform">
+                    </div>
+                    <div class="text-[10px] font-bold text-center text-gray-300 uppercase tracking-tighter">Start AI Chat</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-4 px-2 mb-12">
+            <div class="flex items-center gap-4 text-xs text-gray-500">
+                <div class="w-8 h-8 rounded-full glass flex items-center justify-center text-purple-400">✔</div>
+                <p>Verified Creators: 2257 Compliance Active</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs text-gray-500">
+                <div class="w-8 h-8 rounded-full glass flex items-center justify-center text-purple-400">🔒</div>
+                <p>Encrypted 256-Bit SSL Path Established</p>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 p-4 z-40 bg-gradient-to-t from-[#0e0e0f] via-[#0e0e0f]/80 to-transparent">
+        <div class="max-w-md mx-auto glass rounded-2xl p-4 neon-glow flex items-center justify-between border-purple-500/30">
+            <div>
+                <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mb-1">Access Expires In:</p>
+                <div id="countdown" class="text-xl font-bold text-purple-400 loading-font">05:00</div>
+            </div>
+            <button onclick="triggerRedirect('CRAK', 'sticky_bar')" class="bg-white text-black text-[10px] font-black py-3 px-6 rounded-xl hover:bg-gray-200 transition-colors uppercase tracking-widest">
+                Claim Spot
+            </button>
         </div>
     </div>
-</body>
-</html>
+
+    <script>
+        /* --- CONFIGURATION: PASTE YOUR LINKS HERE --- */
+        const CRAK_LINK = "https://YOUR_CRAKREVENUE_LINK_HERE";
+        const CANDY_LINK = "https://YOUR_CANDYAI_LINK_HERE";
+
+        /* --- REDIRECT & TRACKING LOGIC --- */
+        function triggerRedirect(type, sourceId) {
+            const overlay = document.getElementById('loading-overlay');
+            const text = document.getElementById('loading-text');
+            
+            // Choose the base URL
+            let baseUrl = (type === 'CRAK') ? CRAK_LINK : CANDY_LINK;
+
+            // AUTO-TRACKING: Appends the button name to the URL
+            // This adds "?sid=hero_main" or similar to your link
+            const separator = baseUrl.includes('?') ? '&' : '?';
+            const finalUrl = `${baseUrl}${separator}sid=${sourceId}`;
+
+            const statuses = [
+                "Initializing Secure Handshake...",
+                "Scanning for Available Slots...",
+                "Authenticating Credentials...",
+                "Redirecting to Portal..."
+            ];
+            
+            overlay.classList.remove('hidden');
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < statuses.length) {
+                    text.innerText = statuses[i];
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    window.location.href = finalUrl;
+                }
+            }, 500);
+        }
+
+        /* --- COUNTDOWN TIMER --- */
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0"
