@@ -1,64 +1,66 @@
-<section class="min-h-screen flex items-center justify-center bg-[#0e0e0f] px-6">
-    <div class="w-full max-w-md">
-        <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/[0.08] rounded-3xl p-10 text-center shadow-2xl">
-            
-            <h1 class="text-2xl font-semibold text-white tracking-tight mb-3">
-                Private Interactive Access
-            </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Interactive Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0e0e0f; }
+    </style>
+</head>
+<body>
 
-            <p class="text-sm text-white/60 leading-relaxed mb-10">
-                Premium creators. Real-time interaction. Secure and discreet experience.
-            </p>
+    <section class="min-h-screen flex items-center justify-center bg-[#0e0e0f] px-6">
+        <div class="w-full max-w-md">
+            <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/[0.08] rounded-3xl p-10 text-center shadow-2xl">
+                
+                <h1 class="text-2xl font-semibold text-white tracking-tight mb-3">
+                    Private Interactive Access
+                </h1>
 
-            <div class="flex flex-col gap-4">
-                <button id="liveBtn" onclick="goLive()" 
-                    class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-medium py-4 rounded-full transition-all duration-300 hover:opacity-90 active:scale-95">
-                    Enter Live Experience
-                </button>
+                <p class="text-sm text-white/60 leading-relaxed mb-10">
+                    Premium creators. Real-time interaction. Secure and discreet experience.
+                </p>
 
-                <button id="aiBtn" onclick="goAI()" 
-                    class="w-full border border-white/15 text-white/80 py-4 rounded-full transition-all duration-300 hover:bg-white/5 active:scale-95">
-                    Try AI Companion
-                </button>
-            </div>
+                <div class="flex flex-col gap-4">
+                    <button id="liveBtn" onclick="goLive()" 
+                        class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-medium py-4 rounded-full transition-all duration-300 hover:opacity-90 active:scale-95">
+                        Enter Live Experience
+                    </button>
 
-            <div class="mt-10 text-xs text-white/40 uppercase tracking-widest">
-                Secure Access • Encrypted Session • 18+ Verified
+                    <button id="aiBtn" onclick="goAI()" 
+                        class="w-full border border-white/15 text-white/80 py-4 rounded-full transition-all duration-300 hover:bg-white/5 active:scale-95">
+                        Try AI Companion
+                    </button>
+                </div>
+
+                <div class="mt-10 text-xs text-white/40 uppercase tracking-widest">
+                    Secure Access • Encrypted Session • 18+ Verified
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-    // Constants for your tracking links
-    const LIVE_LINK = "https://t.mbjms.com/406438/3664/0?bo=2779,2778,2777,2776,2775&target=browserextensions&po=6533&aff_sub5=SF_006OG000004lmDN";
-    const AI_LINK   = "https://t.mbjms.com/406438/9403/0?target=domainredirects&aff_sub5=SF_006OG000004lmDN";
+    <script>
+        // Your specific tracking links
+        const LIVE_LINK = "https://t.mbjms.com/406438/3664/0?bo=2779,2778,2777,2776,2775&target=browserextensions&po=6533&aff_sub5=SF_006OG000004lmDN";
+        const AI_LINK   = "https://t.mbjms.com/406438/9403/0?target=domainredirects&aff_sub5=SF_006OG000004lmDN";
 
-    /**
-     * Redirects to the Live Experience
-     */
-    function goLive() {
-        const btn = document.getElementById('liveBtn');
-        btn.innerHTML = '<span class="animate-pulse">Connecting...</span>';
-        btn.disabled = true; // Prevent multiple clicks
-
-        // Small delay to ensure the UI update is visible before navigation
-        setTimeout(() => {
+        function goLive() {
+            const btn = document.getElementById('liveBtn');
+            btn.innerHTML = '<span class="animate-pulse">Connecting...</span>';
+            btn.disabled = true;
             window.location.href = LIVE_LINK;
-        }, 200);
-    }
+        }
 
-    /**
-     * Redirects to the AI Companion
-     */
-    function goAI() {
-        const btn = document.getElementById('aiBtn');
-        btn.innerText = 'Initializing...';
-        btn.classList.add('bg-white/10');
-        btn.disabled = true;
-
-        setTimeout(() => {
+        function goAI() {
+            const btn = document.getElementById('aiBtn');
+            btn.innerText = 'Initializing...';
+            btn.disabled = true;
             window.location.href = AI_LINK;
-        }, 200);
-    }
-</script>
+        }
+    </script>
+
+</body>
+</html>
