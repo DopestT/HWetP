@@ -6,12 +6,31 @@
     <title>Private Interactive Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0e0e0f; }
+        body { background-color: #0e0e0f; color: white; font-family: sans-serif; }
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <section class="min-h-screen flex items-center justify-center bg-[#0e0e0f] px-6">
+    <header class="fixed top-0 w-full z-50 px-6 py-4 border-b border-white/10 bg-[#0e0e0f]/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-gradient-to-tr from-violet-500 to-indigo-500 rounded-lg"></div>
+                <span class="text-xl font-bold tracking-tighter uppercase">CORE ACCESS</span>
+            </div>
+            <div class="hidden md:block text-[10px] text-white/40 tracking-[0.2em] uppercase">
+                Encrypted Peer-to-Peer
+            </div>
+        </div>
+    </header>
+
+    <section class="min-h-screen flex items-center justify-center px-6 pt-20">
         <div class="w-full max-w-md">
             <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/[0.08] rounded-3xl p-10 text-center shadow-2xl">
                 
@@ -25,13 +44,19 @@
 
                 <div class="flex flex-col gap-4">
                     <button id="liveBtn" onclick="goLive()" 
-                        class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-medium py-4 rounded-full transition-all duration-300 hover:opacity-90 active:scale-95">
-                        Enter Live Experience
+                        class="group relative w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-medium py-4 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] active:scale-95 flex items-center justify-center gap-2">
+                        <span id="liveText">Enter Live Experience</span>
+                        <div id="liveSpinner" class="hidden">
+                            <svg class="spinner w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        </div>
                     </button>
 
                     <button id="aiBtn" onclick="goAI()" 
-                        class="w-full border border-white/15 text-white/80 py-4 rounded-full transition-all duration-300 hover:bg-white/5 active:scale-95">
-                        Try AI Companion
+                        class="w-full border border-white/15 text-white/80 py-4 rounded-full transition-all duration-300 hover:bg-white/5 active:scale-95 flex items-center justify-center gap-2">
+                        <span id="aiText">Try AI Companion</span>
+                        <div id="aiSpinner" class="hidden">
+                            <svg class="spinner w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        </div>
                     </button>
                 </div>
 
@@ -43,24 +68,7 @@
     </section>
 
     <script>
-        // Your specific tracking links
         const LIVE_LINK = "https://t.mbjms.com/406438/3664/0?bo=2779,2778,2777,2776,2775&target=browserextensions&po=6533&aff_sub5=SF_006OG000004lmDN";
         const AI_LINK   = "https://t.mbjms.com/406438/9403/0?target=domainredirects&aff_sub5=SF_006OG000004lmDN";
 
         function goLive() {
-            const btn = document.getElementById('liveBtn');
-            btn.innerHTML = '<span class="animate-pulse">Connecting...</span>';
-            btn.disabled = true;
-            window.location.href = LIVE_LINK;
-        }
-
-        function goAI() {
-            const btn = document.getElementById('aiBtn');
-            btn.innerText = 'Initializing...';
-            btn.disabled = true;
-            window.location.href = AI_LINK;
-        }
-    </script>
-
-</body>
-</html>
