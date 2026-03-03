@@ -13,6 +13,7 @@
 </head>
 <body class="antialiased">
 
+    <!-- HEADER -->
     <header class="fixed top-0 w-full z-50 px-6 py-4 border-b border-white/10 bg-[#0e0e0f]/90 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
@@ -25,7 +26,18 @@
         </div>
     </header>
 
-    <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-24">
+    <!-- Spacer so content doesn't hide under fixed header -->
+    <div class="h-[72px]"></div>
+
+    <!-- BANNER -->
+    <div class="w-full h-[120px] md:h-[150px] overflow-hidden bg-black">
+        <img src="/banner.jpg"
+             alt="HER WET PUSSY Banner"
+             class="w-full h-full object-cover object-center">
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 py-16">
         
         <div class="mb-6 opacity-80">
             <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase italic text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">
@@ -49,7 +61,10 @@
                         class="group relative w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold py-5 rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-violet-900/20">
                         <span id="liveText">Enter Live Experience</span>
                         <div id="liveSpinner" class="hidden">
-                            <svg class="spinner w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <svg class="spinner w-5 h-5 text-white" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
                         </div>
                     </button>
 
@@ -57,7 +72,10 @@
                         class="w-full border border-white/10 text-white/70 py-5 rounded-2xl transition-all duration-300 hover:bg-white/5 active:scale-95 flex items-center justify-center gap-3">
                         <span id="aiText">Try AI Companion</span>
                         <div id="aiSpinner" class="hidden">
-                            <svg class="spinner w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <svg class="spinner w-5 h-5 text-white" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
                         </div>
                     </button>
                 </div>
@@ -90,5 +108,6 @@
             document.getElementById(btnId).style.opacity = "0.6";
         }
     </script>
+
 </body>
 </html>
