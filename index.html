@@ -5,26 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Private Interactive Access</title>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXX"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-XXXXXXXX');
-</script>
-
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-body{
-background:#0e0e0f;
+body {
+background-color:#0e0e0f;
 color:white;
 font-family:ui-sans-serif,system-ui,sans-serif;
 overflow-x:hidden;
 }
 
-/* Animated glow background */
-.bg-glow{
+.bg-glow {
 position:fixed;
 inset:0;
 background:
@@ -39,7 +30,6 @@ z-index:-3;
 100%{transform:translateY(-30px) scale(1.08)}
 }
 
-/* Subtle grid */
 .bg-grid{
 position:fixed;
 inset:0;
@@ -54,9 +44,6 @@ mask-image:radial-gradient(circle at center, black 40%, transparent 100%);
 .cta-glow{
 box-shadow:0 0 40px rgba(139,92,246,0.6);
 }
-
-.spinner{animation:spin 1s linear infinite;}
-@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 </style>
 </head>
 
@@ -97,15 +84,15 @@ Live private sessions and AI-powered digital companions. Secure. Discreet. Insta
 
 <div class="flex flex-col gap-5">
 
-<button id="liveBtn" onclick="goLive()"
-class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 py-5 rounded-2xl font-bold text-lg transition transform hover:scale-105 active:scale-95 cta-glow">
-<span id="liveText">Enter Live Now</span>
-</button>
+<a href="YOUR_FULL_LIVE_AFFILIATE_LINK_HERE"
+class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 py-5 rounded-2xl font-bold text-lg text-center transition transform hover:scale-105 active:scale-95 cta-glow">
+Enter Live Now
+</a>
 
-<button id="aiBtn" onclick="goAI()"
-class="w-full border border-white/10 text-white/70 py-5 rounded-2xl text-lg transition hover:bg-white/5">
+<a href="YOUR_FULL_AI_AFFILIATE_LINK_HERE"
+class="w-full border border-white/10 text-white/70 py-5 rounded-2xl text-lg text-center transition hover:bg-white/5">
 Start AI Companion
-</button>
+</a>
 
 </div>
 
@@ -124,14 +111,6 @@ Start AI Companion
 </footer>
 
 <script>
-function goLive(){
-window.location.href="redirect.php";
-}
-
-function goAI(){
-window.location.href="redirect.php";
-}
-
 function enterSite(){
 localStorage.setItem("ageVerified","true");
 document.getElementById("ageGate").style.display="none";
