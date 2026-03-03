@@ -4,16 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HER WET PUSSY | Private Access</title>
+    
+    <meta property="og:title" content="Private Interactive Access">
+    <meta property="og:description" content="Premium creators. Real-time interaction. Secure access.">
+    <meta property="og:image" content="https://yourdomain.com/banner.jpg">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Private Interactive Access">
+    <meta name="twitter:description" content="Premium creators. Real-time interaction.">
+    <meta name="twitter:image" content="https://yourdomain.com/banner.jpg">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXX');
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        body { background-color: #0e0e0f; color: white; font-family: ui-sans-serif, system-ui, sans-serif; }
+        body {
+            background-color: #0e0e0f;
+            color: white;
+            font-family: ui-sans-serif, system-ui, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Background Glow */
+        .bg-glow {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(139,92,246,0.15), transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(99,102,241,0.12), transparent 60%);
+            animation: floatGlow 12s ease-in-out infinite alternate;
+            z-index: -3;
+        }
+        @keyframes floatGlow {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* Grid */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -2;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        /* Banner Sweep */
+        .light-sweep {
+            position: absolute;
+            top: 0;
+            left: -40%;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.15) 50%,
+                rgba(255,255,255,0) 100%
+            );
+            transform: skewX(-20deg);
+            animation: sweep 8s ease-in-out infinite;
+        }
+        @keyframes sweep {
+            0% { left: -40%; }
+            50% { left: 110%; }
+            100% { left: 110%; }
+        }
+
+        /* Card Light Tracking */
+        .card-light {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(139,92,246,0.25), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 2.5rem;
+        }
+        .card-wrapper:hover .card-light { opacity: 1; }
+
+        /* Primary Button Pulse */
+        .pulse-core {
+            position: absolute;
+            inset: -2px;
+            border-radius: 1rem;
+            background: radial-gradient(circle, rgba(139,92,246,0.5) 0%, rgba(139,92,246,0.2) 40%, transparent 70%);
+            animation: pulseGlow 3s ease-in-out infinite;
+            z-index: -1;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.6; transform: scale(0.95); }
+        }
+
         .spinner { animation: spin 1s linear infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
+
 <body class="antialiased">
 
-    <!-- HEADER -->
+    <div class="bg-glow" id="parallaxGlow"></div>
+    <div class="bg-grid"></div>
+
     <header class="fixed top-0 w-full z-50 px-6 py-4 border-b border-white/10 bg-[#0e0e0f]/90 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
@@ -26,55 +133,59 @@
         </div>
     </header>
 
-    <!-- Spacer so content doesn't hide under fixed header -->
     <div class="h-[72px]"></div>
 
-    <!-- BANNER -->
-    <div class="w-full h-[120px] md:h-[150px] overflow-hidden bg-black">
-        <img src="/banner.jpg"
-             alt="HER WET PUSSY Banner"
-             class="w-full h-full object-cover object-center">
+    <div class="relative w-full h-[120px] md:h-[150px] overflow-hidden bg-black">
+        <img src="/banner.jpg" alt="Site Banner" class="w-full h-full object-cover object-center">
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <div class="light-sweep"></div>
+        </div>
     </div>
 
-    <!-- MAIN CONTENT -->
     <section class="min-h-screen flex flex-col items-center justify-center px-6 py-16">
-        
-        <div class="mb-6 opacity-80">
-            <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase italic text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">
-                HER WET PUSSY
-            </h2>
+        <div class="mb-10 text-center">
+            <div class="flex items-center justify-center gap-3 mb-3">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                <span class="text-[11px] uppercase tracking-[0.4em] text-white/40">
+                    System Status: Online
+                </span>
+            </div>
+            <p class="text-sm text-white/50 tracking-wide">
+                Real-Time Interactive Network Initialized
+            </p>
+            <div class="w-28 h-[2px] bg-gradient-to-r from-transparent via-violet-500 to-transparent mx-auto mt-6 opacity-60"></div>
         </div>
 
-        <div class="w-full max-w-md">
-            <div class="bg-white/[0.03] backdrop-blur-3xl border border-white/[0.08] rounded-[2.5rem] p-10 text-center shadow-2xl">
-                
+        <div class="w-full max-w-md card-wrapper relative">
+            <div class="card-light"></div>
+            <div class="bg-white/[0.03] backdrop-blur-3xl border border-white/[0.08] rounded-[2.5rem] p-10 text-center shadow-[0_0_60px_rgba(139,92,246,0.15)] relative z-10">
                 <h1 class="text-2xl font-semibold text-white tracking-tight mb-3">
                     Private Interactive Access
                 </h1>
-
                 <p class="text-sm text-white/50 leading-relaxed mb-10">
                     Premium creators. Real-time interaction. Secure and discreet experience.
                 </p>
 
                 <div class="flex flex-col gap-4">
-                    <button id="liveBtn" onclick="goLive()" 
-                        class="group relative w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold py-5 rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-violet-900/20">
-                        <span id="liveText">Enter Live Experience</span>
-                        <div id="liveSpinner" class="hidden">
+                    <button id="liveBtn" onclick="goLive()"
+                        class="relative w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold py-5 rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-violet-900/20">
+                        <div class="pulse-core"></div>
+                        <span id="liveText" class="relative z-10">Enter Live Experience</span>
+                        <div id="liveSpinner" class="hidden relative z-10">
                             <svg class="spinner w-5 h-5 text-white" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                             </svg>
                         </div>
                     </button>
 
-                    <button id="aiBtn" onclick="goAI()" 
+                    <button id="aiBtn" onclick="goAI()"
                         class="w-full border border-white/10 text-white/70 py-5 rounded-2xl transition-all duration-300 hover:bg-white/5 active:scale-95 flex items-center justify-center gap-3">
                         <span id="aiText">Try AI Companion</span>
                         <div id="aiSpinner" class="hidden">
                             <svg class="spinner w-5 h-5 text-white" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                             </svg>
                         </div>
                     </button>
@@ -88,26 +199,39 @@
     </section>
 
     <script>
-        const LIVE_LINK = "https://t.mbjms.com/406438/3664/0?bo=2779,2778,2777,2776,2775&target=browserextensions&po=6533&aff_sub5=SF_006OG000004lmDN";
-        const AI_LINK   = "https://t.mbjms.com/406438/9403/0?target=domainredirects&aff_sub5=SF_006OG000004lmDN";
+        const LIVE_LINK="https://t.mbjms.com/406438/3664/0?bo=2779,2778,2777,2776,2775&target=browserextensions&po=6533&aff_sub5=SF_006OG000004lmDN";
+        const AI_LINK="https://t.mbjms.com/406438/9403/0?target=domainredirects&aff_sub5=SF_006OG000004lmDN";
 
-        function goLive() {
-            startLoading('liveBtn', 'liveText', 'liveSpinner', 'Connecting...');
-            setTimeout(() => { window.location.href = LIVE_LINK; }, 150);
+        function goLive(){
+            startLoading('liveBtn','liveText','liveSpinner','Connecting...');
+            setTimeout(()=>{window.location.href=LIVE_LINK;},150);
         }
-
-        function goAI() {
-            startLoading('aiBtn', 'aiText', 'aiSpinner', 'Initializing...');
-            setTimeout(() => { window.location.href = AI_LINK; }, 150);
+        function goAI(){
+            startLoading('aiBtn','aiText','aiSpinner','Initializing...');
+            setTimeout(()=>{window.location.href=AI_LINK;},150);
         }
-
-        function startLoading(btnId, textId, spinnerId, msg) {
-            document.getElementById(textId).innerText = msg;
+        function startLoading(btnId,textId,spinnerId,msg){
+            document.getElementById(textId).innerText=msg;
             document.getElementById(spinnerId).classList.remove('hidden');
-            document.getElementById(btnId).disabled = true;
-            document.getElementById(btnId).style.opacity = "0.6";
+            document.getElementById(btnId).disabled=true;
+            document.getElementById(btnId).style.opacity="0.6";
         }
+        
+        document.addEventListener("mousemove",(e)=>{
+            const glow=document.getElementById("parallaxGlow");
+            const x=(e.clientX/window.innerWidth - 0.5)*20;
+            const y=(e.clientY/window.innerHeight - 0.5)*20;
+            glow.style.transform=`translate(${x}px, ${y}px)`;
+        });
+        
+        const card=document.querySelector(".card-wrapper");
+        card.addEventListener("mousemove",(e)=>{
+            const rect=card.getBoundingClientRect();
+            const x=e.clientX-rect.left;
+            const y=e.clientY-rect.top;
+            card.style.setProperty("--x",`${x}px`);
+            card.style.setProperty("--y",`${y}px`);
+        });
     </script>
-
 </body>
 </html>
