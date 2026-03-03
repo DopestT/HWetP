@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Private Interactive Access</title>
 
-<meta property="og:title" content="Private Interactive Access">
-<meta property="og:description" content="Instant private access. Real-time connection. Secure and discreet.">
-<meta property="og:type" content="website">
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXX"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -20,75 +16,103 @@ gtag('config', 'G-XXXXXXXX');
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-body {background:#0e0e0f;color:white;font-family:ui-sans-serif,system-ui,sans-serif;overflow-x:hidden;}
-.bg-glow{position:fixed;inset:0;background:
-radial-gradient(circle at 30% 20%, rgba(139,92,246,0.15), transparent 60%),
-radial-gradient(circle at 70% 80%, rgba(99,102,241,0.12), transparent 60%);
-animation:floatGlow 12s ease-in-out infinite alternate;z-index:-3;}
-@keyframes floatGlow{0%{transform:translateY(0)}100%{transform:translateY(-20px) scale(1.05)}}
+body{
+background:#0e0e0f;
+color:white;
+font-family:ui-sans-serif,system-ui,sans-serif;
+overflow-x:hidden;
+}
+
+/* Animated glow background */
+.bg-glow{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 30% 20%, rgba(139,92,246,0.25), transparent 60%),
+radial-gradient(circle at 70% 80%, rgba(99,102,241,0.18), transparent 60%);
+animation:floatGlow 10s ease-in-out infinite alternate;
+z-index:-3;
+}
+
+@keyframes floatGlow{
+0%{transform:translateY(0px) scale(1)}
+100%{transform:translateY(-30px) scale(1.08)}
+}
+
+/* Subtle grid */
+.bg-grid{
+position:fixed;
+inset:0;
+background-image:
+linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size:60px 60px;
+z-index:-2;
+mask-image:radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
+.cta-glow{
+box-shadow:0 0 40px rgba(139,92,246,0.6);
+}
+
 .spinner{animation:spin 1s linear infinite;}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 </style>
 </head>
 
-<body class="antialiased">
+<body>
 
 <!-- AGE GATE -->
 <div id="ageGate" class="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center z-[999] px-6">
-<div class="max-w-md w-full bg-[#0e0e0f] border border-white/10 rounded-3xl p-10 text-center">
-<h2 class="text-xl font-semibold mb-4">Age Verification Required</h2>
-<p class="text-sm text-white/50 mb-8">You must be 18+ to enter.</p>
+<div class="max-w-md w-full bg-[#0e0e0f] border border-white/10 rounded-3xl p-10 text-center shadow-[0_0_80px_rgba(139,92,246,0.4)]">
+<h2 class="text-xl font-semibold mb-4">18+ Only</h2>
+<p class="text-sm text-white/50 mb-8">This site contains adult interactive content.</p>
 <div class="flex flex-col gap-4">
-<button onclick="enterSite()" class="bg-gradient-to-r from-violet-600 to-indigo-600 py-4 rounded-xl font-semibold">I Am 18+</button>
-<button onclick="exitSite()" class="border border-white/10 py-4 rounded-xl text-white/60">Exit</button>
-</div>
-</div>
-</div>
-
-<!-- EXIT INTENT -->
-<div id="exitPopup" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[998] px-6">
-<div class="max-w-md w-full bg-[#0e0e0f] border border-white/10 rounded-3xl p-8 text-center">
-<h3 class="text-lg font-semibold mb-4">Wait — Exclusive Access</h3>
-<p class="text-sm text-white/50 mb-6">Unlock private session access instantly.</p>
-<button onclick="forceRedirect()" class="bg-gradient-to-r from-violet-600 to-indigo-600 py-4 rounded-xl w-full font-semibold">
-Continue Now
+<button onclick="enterSite()" class="bg-gradient-to-r from-violet-600 to-indigo-600 py-4 rounded-xl font-semibold">
+Enter Site
 </button>
+<button onclick="exitSite()" class="border border-white/10 py-4 rounded-xl text-white/60">
+Leave
+</button>
+</div>
 </div>
 </div>
 
 <div class="bg-glow"></div>
+<div class="bg-grid"></div>
 
-<section class="flex flex-col items-center justify-center px-6 py-24 min-h-screen">
-<div class="max-w-md w-full bg-white/[0.03] backdrop-blur-3xl border border-white/[0.08] rounded-[2.5rem] p-10 text-center">
+<section class="flex flex-col items-center justify-center min-h-screen px-6 py-24">
 
-<h1 class="text-2xl font-semibold mb-4">
+<div class="w-full max-w-md relative">
+
+<div class="bg-white/[0.03] backdrop-blur-3xl border border-white/[0.08] rounded-[2.5rem] p-10 text-center shadow-[0_0_80px_rgba(139,92,246,0.2)]">
+
+<h1 class="text-3xl font-bold mb-4 tracking-tight">
 Private Interactive Access
 </h1>
 
 <p class="text-sm text-white/50 mb-10">
-Instant private access. Real-time connection. Secure and discreet.
+Live private sessions and AI-powered digital companions. Secure. Discreet. Instant.
 </p>
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-5">
 
 <button id="liveBtn" onclick="goLive()"
-class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 py-5 rounded-2xl font-bold flex items-center justify-center gap-3">
+class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 py-5 rounded-2xl font-bold text-lg transition transform hover:scale-105 active:scale-95 cta-glow">
 <span id="liveText">Enter Live Now</span>
-<div id="liveSpinner" class="hidden">
-<svg class="spinner w-5 h-5 text-white" fill="none" viewBox="0 0 24 24">
-<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-</svg>
-</div>
 </button>
 
 <button id="aiBtn" onclick="goAI()"
-class="w-full border border-white/10 text-white/70 py-5 rounded-2xl">
-<span id="aiText">Start AI Companion</span>
+class="w-full border border-white/10 text-white/70 py-5 rounded-2xl text-lg transition hover:bg-white/5">
+Start AI Companion
 </button>
 
 </div>
+
 </div>
+
+</div>
+
 </section>
 
 <footer class="w-full border-t border-white/[0.06] py-8 px-6 text-center pb-16">
@@ -100,46 +124,17 @@ class="w-full border border-white/10 text-white/70 py-5 rounded-2xl">
 </footer>
 
 <script>
-const OFFERS=[
-"https://t.mbjms.com/406438/3664/0?...",
-"https://t.mbjms.com/406438/9403/0?..."
-];
-
-function pickOffer(){
-return OFFERS[Math.floor(Math.random()*OFFERS.length)];
-}
-
-let selectedOffer=pickOffer();
-
 function goLive(){
-gtag('event','click',{event_category:'engagement',event_label:'live'});
-startLoading('liveBtn','liveText','liveSpinner','Connecting...');
-setTimeout(()=>{redirectMasked();},500);
+window.location.href="redirect.php";
 }
 
 function goAI(){
-gtag('event','click',{event_category:'engagement',event_label:'ai'});
-redirectMasked();
-}
-
-function redirectMasked(){
-window.location.href=selectedOffer;
-}
-
-function forceRedirect(){
-redirectMasked();
-}
-
-function startLoading(btnId,textId,spinnerId,msg){
-document.getElementById(textId).innerText=msg;
-document.getElementById(spinnerId).classList.remove('hidden');
-document.getElementById(btnId).disabled=true;
+window.location.href="redirect.php";
 }
 
 function enterSite(){
 localStorage.setItem("ageVerified","true");
 document.getElementById("ageGate").style.display="none";
-history.pushState(null,null,location.href);
 }
 
 function exitSite(){
@@ -149,16 +144,6 @@ window.location.href="https://www.google.com";
 if(localStorage.getItem("ageVerified")==="true"){
 document.getElementById("ageGate").style.display="none";
 }
-
-document.addEventListener("mouseout",function(e){
-if(e.clientY<0){
-document.getElementById("exitPopup").classList.remove("hidden");
-}
-});
-
-window.addEventListener("popstate",function(){
-document.getElementById("exitPopup").classList.remove("hidden");
-});
 </script>
 
 </body>
