@@ -35,7 +35,6 @@
             overflow-x: hidden;
         }
 
-        /* Background Glow */
         .bg-glow {
             position: fixed;
             inset: 0;
@@ -50,7 +49,6 @@
             100% { transform: translateY(-20px) scale(1.05); }
         }
 
-        /* Grid */
         .bg-grid {
             position: fixed;
             inset: 0;
@@ -62,7 +60,6 @@
             mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
         }
 
-        /* Banner Sweep */
         .light-sweep {
             position: absolute;
             top: 0;
@@ -84,7 +81,6 @@
             100% { left: 110%; }
         }
 
-        /* Card Light Tracking */
         .card-light {
             position: absolute;
             inset: 0;
@@ -96,7 +92,6 @@
         }
         .card-wrapper:hover .card-light { opacity: 1; }
 
-        /* Primary Button Pulse */
         .pulse-core {
             position: absolute;
             inset: -2px;
@@ -142,7 +137,7 @@
         </div>
     </div>
 
-    <section class="min-h-screen flex flex-col items-center justify-center px-6 py-16">
+    <section class="flex flex-col items-center justify-center px-6 py-16">
         <div class="mb-10 text-center">
             <div class="flex items-center justify-center gap-3 mb-3">
                 <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
@@ -194,9 +189,24 @@
                 <div class="mt-10 text-[10px] text-white/30 uppercase tracking-[0.2em] font-medium">
                     Secure Access • Encrypted Session • 18+ Verified
                 </div>
+
+                <div class="mt-4 flex items-center justify-center gap-4 text-[10px] text-white/30 uppercase tracking-[0.2em]">
+                    <a href="/privacy.html" class="hover:text-white/60 transition-colors duration-200">Privacy Policy</a>
+                    <span class="text-white/10">•</span>
+                    <a href="/terms.html" class="hover:text-white/60 transition-colors duration-200">Terms of Service</a>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Footer with Privacy & Terms links -->
+    <footer class="w-full border-t border-white/[0.06] py-6 px-6 text-center">
+        <div class="flex items-center justify-center gap-6 text-[11px] text-white/30 uppercase tracking-[0.25em]">
+            <a href="/privacy.html" class="hover:text-white/60 transition-colors duration-200">Privacy Policy</a>
+            <span class="text-white/10">•</span>
+            <a href="/terms.html" class="hover:text-white/60 transition-colors duration-200">Terms of Service</a>
+        </div>
+    </footer>
 
     <script>
         const LIVE_LINK="https://t.mbjms.com/406438/3664/0?bo=2779,2778,2777,2776,2775&target=browserextensions&po=6533&aff_sub5=SF_006OG000004lmDN";
