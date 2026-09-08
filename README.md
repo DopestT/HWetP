@@ -16,10 +16,11 @@ HERWET is being rebuilt from the approved Base44 visual blueprint into a standal
 - approved catalog thumbnails and direct licensed/remote video playback supported by the watch route
 - server-side media-host allowlisting for public media and thumbnails
 - audited source/video moderation controls with attributable operator actions and before/after state
+- moderation queue inspection for pending sources/videos and recent audit actions
 - Docker + nginx + Caddy + PostgreSQL deployment foundation
 - neutral QA seed for end-to-end API testing without real media
 - pre-launch `noindex` policy
-- GitHub CI validation
+- GitHub CI validation of frontend build, API syntax, moderation scripts, and API policy tests
 
 No production adult media, third-party source feeds, payments, user accounts, advertising, or production age-verification provider are connected yet.
 
