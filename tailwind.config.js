@@ -1,0 +1,22 @@
+export default {
+  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        abyss: '#040B14',
+        cyan: '#00F2FF',
+        seafoam: '#D1E8ED',
+        titanium: '#3A4D5C',
+        card: '#07131F',
+        border: '#3A4D5C',
+        'muted-foreground': '#8094A3',
+      },
+      fontFamily: {
+        heading: ['Arial Narrow', 'Arial', 'sans-serif'],
+        body: ['Inter', 'Arial', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+      },
+    },
+  },
+  plugins: [],
+};
