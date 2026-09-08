@@ -3,9 +3,14 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "node --watch src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "register-source": "node scripts/register-source.js",
+    "stage-video": "node scripts/stage-video.js"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.2",
