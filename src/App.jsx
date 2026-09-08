@@ -1,5 +1,7 @@
-import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import AgeGate from '@/components/AgeGate';
+import { getAgeConfirmed, setAgeConfirmed } from '@/lib/herwetStorage';
 import Home from '@/pages/Home';
 import Search from '@/pages/Search';
 import Watch from '@/pages/Watch';
@@ -21,15 +23,27 @@ function NotFound() {
 }
 
 export default function App() {
+  const location = useLocation();
+  const [ageConfirmed, setAgeState] = useState(() => getAgeConfirmed());
+  const trustRoute = location.pathname.startsWith('/trust/');
+
+  const enter = () => {
+    setAgeConfirmed();
+    setAgeState(true);
+  };
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/search" element={<Search />} />
-      <Route path="/watch/:slug" element={<Watch />} />
-      <Route path="/category/:slug" element={<Category />} />
-      <Route path="/library" element={<Library />} />
-      <Route path="/trust/:section" element={<TrustSafety />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      {!trustRoute && !ageConfirmed && <AgeGate onEnter={enter} />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/watch/:slug" element={<Watch />} />
+        <Route path="/category/:slug" element={<Category />} />
+        <Route path="/library" element={<Library />} />
+        <Route path="/trust/:section" element={<TrustSafety />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
