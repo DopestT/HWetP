@@ -58,7 +58,8 @@ export default function Watch() {
     );
   }
 
-  const hasPlayableVideo = source === "api" && video.mediaUrl && ["remote_stream", "licensed_hosted"].includes(video.mediaMode);
+  const hasDirectVideo = source === "api" && video.mediaAllowed && video.mediaUrl && ["remote_stream", "licensed_hosted"].includes(video.mediaMode);
+  const hasEmbeddedVideo = source === "api" && video.mediaAllowed && video.mediaUrl && video.mediaMode === "embed";
 
   return (
     <div className="relative isolate min-h-screen overflow-hidden bg-abyss text-seafoam sonar-cursor">
@@ -68,8 +69,18 @@ export default function Watch() {
         <div className="mt-7 grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_360px]">
           <section>
             <div className="relative aspect-video overflow-hidden rounded-xl border border-titanium/30 bg-card shadow-[0_0_60px_rgba(0,242,255,0.08)] sm:rounded-2xl">
-              {hasPlayableVideo ? (
+              {hasDirectVideo ? (
                 <video className="h-full w-full bg-black object-contain" src={video.mediaUrl} poster={video.thumbnailUrl || undefined} controls preload="metadata" playsInline />
+              ) : hasEmbeddedVideo ? (
+                <iframe
+                  src={video.mediaUrl}
+                  title={video.title}
+                  className="h-full w-full border-0 bg-black"
+                  sandbox="allow-scripts allow-same-origin allow-presentation"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  referrerPolicy="no-referrer"
+                  allowFullScreen
+                />
               ) : (
                 <>
                   {video.thumbnailUrl && source === "api" ? <img src={video.thumbnailUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" /> : <div className={`absolute inset-0 bg-gradient-to-br ${video.tone}`} />}
