@@ -92,6 +92,32 @@ CREATE TABLE IF NOT EXISTS takedown_requests (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
+CREATE OR REPLACE FUNCTION set_updated_at()
+RETURNS trigger AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS content_sources_set_updated_at ON content_sources;
+CREATE TRIGGER content_sources_set_updated_at BEFORE UPDATE ON content_sources FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+DROP TRIGGER IF EXISTS videos_set_updated_at ON videos;
+CREATE TRIGGER videos_set_updated_at BEFORE UPDATE ON videos FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+DROP TRIGGER IF EXISTS content_reports_set_updated_at ON content_reports;
+CREATE TRIGGER content_reports_set_updated_at BEFORE UPDATE ON content_reports FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+DROP TRIGGER IF EXISTS takedowns_set_updated_at ON takedown_requests;
+CREATE TRIGGER takedowns_set_updated_at BEFORE UPDATE ON takedown_requests FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+INSERT INTO categories (slug, label, description) VALUES
+  ('current', 'Current', 'What is moving fastest right now.'),
+  ('fresh', 'Fresh', 'Recently surfaced additions.'),
+  ('deep-finds', 'Deep Finds', 'Discovery beyond the obvious.'),
+  ('explore', 'Explore', 'Browse broad interests.'),
+  ('collections', 'Collections', 'Curated groups and saved sets.'),
+  ('history', 'History', 'Recently visited content.')
+ON CONFLICT (slug) DO NOTHING;
+
 CREATE INDEX IF NOT EXISTS videos_source_idx ON videos(source_id);
 CREATE INDEX IF NOT EXISTS videos_public_idx ON videos(moderation_status, is_removed, published_at DESC);
 CREATE INDEX IF NOT EXISTS reports_status_idx ON content_reports(status, created_at DESC);
