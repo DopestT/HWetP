@@ -44,10 +44,12 @@ export function normalizeApiVideo(item) {
     categories,
     tone: toneFor(item.slug || item.id || item.title || ''),
     mediaMode: item.media_mode || null,
-    mediaUrl: item.media_url || null,
+    mediaUrl: item.media_allowed === false ? null : (item.media_url || null),
+    mediaAllowed: item.media_allowed !== false,
     thumbnailUrl: item.thumbnail_url || null,
     attributionText: item.attribution_text || null,
     publishedAt: item.published_at || null,
+    sourceType: item.source_type || null,
     source: 'api',
   };
 }
