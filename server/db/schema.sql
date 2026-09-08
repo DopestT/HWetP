@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS content_sources (
   name text NOT NULL,
   source_type text NOT NULL CHECK (source_type IN ('api', 'feed', 'embed', 'licensed_upload')),
   base_url text,
+  allowed_media_hosts text[] NOT NULL DEFAULT '{}',
   authorization_status source_authorization_status NOT NULL DEFAULT 'pending',
   authorization_reference text,
   terms_reviewed_at timestamptz,
@@ -26,6 +27,9 @@ CREATE TABLE IF NOT EXISTS content_sources (
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
+
+ALTER TABLE content_sources
+  ADD COLUMN IF NOT EXISTS allowed_media_hosts text[] NOT NULL DEFAULT '{}';
 
 CREATE TABLE IF NOT EXISTS videos (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -135,7 +139,9 @@ SELECT
   v.thumbnail_url,
   v.attribution_text,
   v.published_at,
-  v.created_at
+  v.created_at,
+  s.source_type,
+  s.allowed_media_hosts
 FROM videos v
 JOIN content_sources s ON s.id = v.source_id
 WHERE s.authorization_status = 'approved'
