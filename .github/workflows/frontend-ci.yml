@@ -1,0 +1,37 @@
+name: HERWET Production CI
+
+on:
+  push:
+    branches: [herwet-production-v1]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install frontend dependencies
+        run: npm install
+      - name: Build frontend
+        run: npm run build
+      - name: Install API dependencies
+        working-directory: server
+        run: npm install
+      - name: Check API and moderation script syntax
+        working-directory: server
+        run: |
+          node --check src/server.js
+          node --check scripts/register-source.js
+          node --check scripts/stage-video.js
+          node --check scripts/moderation-queue.js
+          node --check scripts/moderate-source.js
+          node --check scripts/moderate-video.js
+      - name: Test API policies
+        working-directory: server
+        run: npm test
