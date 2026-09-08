@@ -5,6 +5,7 @@ import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
 import pg from 'pg';
 import { z } from 'zod';
+import { sanitizePublicVideo } from './mediaPolicy.js';
 
 const { Pool } = pg;
 const app = Fastify({ logger: true, trustProxy: true });
@@ -27,35 +28,6 @@ await app.register(rateLimit, { max: 120, timeWindow: '1 minute' });
 app.addHook('onClose', async () => {
   await pool.end();
 });
-
-function isAllowedRemoteUrl(value, allowedHosts = []) {
-  if (!value || !Array.isArray(allowedHosts) || !allowedHosts.length) return false;
-  try {
-    const parsed = new URL(value);
-    if (parsed.protocol !== 'https:') return false;
-    const host = parsed.hostname.toLowerCase();
-    return allowedHosts.some((allowedHost) => {
-      const normalized = String(allowedHost).trim().toLowerCase();
-      return normalized && (host === normalized || host.endsWith(`.${normalized}`));
-    });
-  } catch {
-    return false;
-  }
-}
-
-function sanitizePublicVideo(row) {
-  const { allowed_media_hosts: allowedHosts = [], source_type: sourceType, ...video } = row;
-  const mediaAllowed = isAllowedRemoteUrl(video.media_url, allowedHosts);
-  const thumbnailAllowed = !video.thumbnail_url || isAllowedRemoteUrl(video.thumbnail_url, allowedHosts);
-
-  return {
-    ...video,
-    media_url: mediaAllowed ? video.media_url : null,
-    thumbnail_url: thumbnailAllowed ? video.thumbnail_url : null,
-    media_allowed: mediaAllowed,
-    source_type: sourceType,
-  };
-}
 
 app.get('/healthz', async (_request, reply) => {
   try {
