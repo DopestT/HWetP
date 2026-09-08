@@ -1,0 +1,4 @@
+services:
+  db:
+    volumes:
+      - ../server/db/seed-neutral.sql:/docker-entrypoint-initdb.d/002-neutral-qa-seed.sql:ro
