@@ -14,13 +14,39 @@ if (!['embed', 'remote_stream', 'licensed_hosted'].includes(mediaMode)) {
   process.exit(1);
 }
 
+function validateRemoteUrl(value, allowedHosts, label) {
+  let parsed;
+  try {
+    parsed = new URL(value);
+  } catch {
+    throw new Error(`${label} must be a valid URL.`);
+  }
+
+  if (parsed.protocol !== 'https:') {
+    throw new Error(`${label} must use HTTPS.`);
+  }
+
+  const host = parsed.hostname.toLowerCase();
+  const allowed = allowedHosts.some((allowedHost) => host === allowedHost || host.endsWith(`.${allowedHost}`));
+  if (!allowed) {
+    throw new Error(`${label} host ${host} is not on this source's allowed media-host list.`);
+  }
+  return parsed.toString();
+}
+
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 try {
   const source = await pool.query(
-    'SELECT id, name, authorization_status FROM content_sources WHERE id = $1',
+    'SELECT id, name, authorization_status, allowed_media_hosts FROM content_sources WHERE id = $1',
     [sourceId],
   );
   if (!source.rowCount) throw new Error('Source not found. Register the source first.');
+
+  const allowedHosts = source.rows[0].allowed_media_hosts || [];
+  if (!allowedHosts.length) throw new Error('Source has no allowed media hosts. Re-register or update it before staging media.');
+
+  const safeMediaUrl = validateRemoteUrl(mediaUrl, allowedHosts, 'mediaUrl');
+  const safeThumbnailUrl = thumbnailUrl ? validateRemoteUrl(thumbnailUrl, allowedHosts, 'thumbnailUrl') : '';
 
   const result = await pool.query(
     `INSERT INTO videos
@@ -36,7 +62,7 @@ try {
        is_removed = false,
        removal_reason = NULL
      RETURNING id, slug, title, moderation_status, created_at, updated_at`,
-    [sourceId, externalId, slug, title, mediaMode, mediaUrl, thumbnailUrl],
+    [sourceId, externalId, slug, title, mediaMode, safeMediaUrl, safeThumbnailUrl],
   );
 
   console.log(JSON.stringify({ source: source.rows[0], video: result.rows[0] }, null, 2));
