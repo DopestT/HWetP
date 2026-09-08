@@ -14,6 +14,8 @@ HERWET is being rebuilt from the approved Base44 visual blueprint into a standal
 - Fastify API for public catalog reads plus report/takedown case creation
 - frontend catalog adapter: production API first, neutral local fallback when the API is unavailable
 - approved catalog thumbnails and direct licensed/remote video playback supported by the watch route
+- server-side media-host allowlisting for public media and thumbnails
+- audited source/video moderation controls with attributable operator actions and before/after state
 - Docker + nginx + Caddy + PostgreSQL deployment foundation
 - neutral QA seed for end-to-end API testing without real media
 - pre-launch `noindex` policy
@@ -58,7 +60,39 @@ docker compose -f docker-compose.yml -f docker-compose.qa.yml up --build -d
 
 The QA seed contains metadata-only placeholder records and `example.invalid` media references. It exists only to exercise the real database → API → frontend path without connecting adult media.
 
-For an existing database volume, PostgreSQL init scripts do not rerun automatically. Use a fresh QA volume or apply `server/db/seed-neutral.sql` manually.
+For an existing database volume, PostgreSQL init scripts do not rerun automatically. Apply `server/db/migrations/002_moderation_control.sql` before using the moderation commands.
+
+## Moderation and source control
+
+All moderation changes require an attributable operator name through `MODERATOR_ACTOR` and a written reason. Actions are written to `moderation_actions` with the previous and new state.
+
+Inspect the queue:
+
+```bash
+cd server
+npm run moderation-queue -- all 25
+```
+
+Approve or revoke a registered source:
+
+```bash
+MODERATOR_ACTOR="operator@example.com" npm run moderate-source -- <source-id> approve "Authorization evidence reviewed"
+MODERATOR_ACTOR="operator@example.com" npm run moderate-source -- <source-id> revoke "Authorization withdrawn"
+```
+
+Stage a video with evidence references:
+
+```bash
+npm run stage-video -- <source-id> <external-id> <slug> <title> <media-mode> <media-url> <thumbnail-url> <consent-reference> <rights-reference> <attribution>
+```
+
+Approve, reject, block, or reopen a staged video:
+
+```bash
+MODERATOR_ACTOR="operator@example.com" npm run moderate-video -- <video-id> approve "Consent and rights evidence verified"
+```
+
+Video approval is refused unless its source is approved and both `consent_reference` and `rights_reference` are present. Blocking immediately removes the item from the public catalog path; reopening returns it to pending review rather than restoring it directly.
 
 ## Production direction
 
