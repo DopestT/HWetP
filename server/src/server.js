@@ -28,7 +28,15 @@ app.addHook('onClose', async () => {
   await pool.end();
 });
 
-app.get('/healthz', async () => ({ ok: true }));
+app.get('/healthz', async (_request, reply) => {
+  try {
+    await pool.query('SELECT 1');
+    return { ok: true, database: true };
+  } catch (error) {
+    app.log.error(error);
+    return reply.code(503).send({ ok: false, database: false });
+  }
+});
 
 app.get('/api/videos', async (request) => {
   const querySchema = z.object({
@@ -49,9 +57,9 @@ app.get('/api/videos', async (request) => {
   if (category) {
     values.push(category);
     where.push(`EXISTS (
-      SELECT 1 FROM video_categories vc
-      JOIN categories c ON c.id = vc.category_id
-      WHERE vc.video_id = pv.id AND c.slug = $${values.length}
+      SELECT 1 FROM video_categories vc_filter
+      JOIN categories c_filter ON c_filter.id = vc_filter.category_id
+      WHERE vc_filter.video_id = pv.id AND c_filter.slug = $${values.length}
     )`);
   }
 
@@ -63,14 +71,15 @@ app.get('/api/videos', async (request) => {
   const result = await pool.query(
     `SELECT pv.id, pv.slug, pv.title, pv.description, pv.duration_seconds,
             pv.media_mode, pv.media_url, pv.thumbnail_url, pv.attribution_text,
-            pv.published_at,
+            pv.published_at, pv.created_at,
             COALESCE(array_agg(DISTINCT c.slug) FILTER (WHERE c.slug IS NOT NULL), '{}') AS categories
        FROM public_videos pv
        LEFT JOIN video_categories vc ON vc.video_id = pv.id
        LEFT JOIN categories c ON c.id = vc.category_id
        ${clause}
        GROUP BY pv.id, pv.slug, pv.title, pv.description, pv.duration_seconds,
-                pv.media_mode, pv.media_url, pv.thumbnail_url, pv.attribution_text, pv.published_at
+                pv.media_mode, pv.media_url, pv.thumbnail_url, pv.attribution_text,
+                pv.published_at, pv.created_at
        ORDER BY pv.published_at DESC NULLS LAST, pv.created_at DESC
        LIMIT ${limitParam} OFFSET ${offsetParam}`,
     values,
