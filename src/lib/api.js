@@ -17,6 +17,19 @@ async function request(path, options = {}) {
   return payload;
 }
 
+export function fetchVideos({ q = '', category = '', limit = 24, offset = 0 } = {}) {
+  const params = new URLSearchParams();
+  if (q) params.set('q', q);
+  if (category) params.set('category', category);
+  params.set('limit', String(limit));
+  params.set('offset', String(offset));
+  return request(`/api/videos?${params.toString()}`);
+}
+
+export function fetchVideo(slug) {
+  return request(`/api/videos/${encodeURIComponent(slug)}`);
+}
+
 export function submitContentReport(data) {
   return request('/api/reports', { method: 'POST', body: JSON.stringify(data) });
 }
