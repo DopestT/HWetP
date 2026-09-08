@@ -26,3 +26,6 @@ jobs:
       - name: Check API syntax
         working-directory: server
         run: node --check src/server.js
+      - name: Test API media policy
+        working-directory: server
+        run: npm test
