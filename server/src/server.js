@@ -28,6 +28,35 @@ app.addHook('onClose', async () => {
   await pool.end();
 });
 
+function isAllowedRemoteUrl(value, allowedHosts = []) {
+  if (!value || !Array.isArray(allowedHosts) || !allowedHosts.length) return false;
+  try {
+    const parsed = new URL(value);
+    if (parsed.protocol !== 'https:') return false;
+    const host = parsed.hostname.toLowerCase();
+    return allowedHosts.some((allowedHost) => {
+      const normalized = String(allowedHost).trim().toLowerCase();
+      return normalized && (host === normalized || host.endsWith(`.${normalized}`));
+    });
+  } catch {
+    return false;
+  }
+}
+
+function sanitizePublicVideo(row) {
+  const { allowed_media_hosts: allowedHosts = [], source_type: sourceType, ...video } = row;
+  const mediaAllowed = isAllowedRemoteUrl(video.media_url, allowedHosts);
+  const thumbnailAllowed = !video.thumbnail_url || isAllowedRemoteUrl(video.thumbnail_url, allowedHosts);
+
+  return {
+    ...video,
+    media_url: mediaAllowed ? video.media_url : null,
+    thumbnail_url: thumbnailAllowed ? video.thumbnail_url : null,
+    media_allowed: mediaAllowed,
+    source_type: sourceType,
+  };
+}
+
 app.get('/healthz', async (_request, reply) => {
   try {
     await pool.query('SELECT 1');
@@ -71,38 +100,39 @@ app.get('/api/videos', async (request) => {
   const result = await pool.query(
     `SELECT pv.id, pv.slug, pv.title, pv.description, pv.duration_seconds,
             pv.media_mode, pv.media_url, pv.thumbnail_url, pv.attribution_text,
-            pv.published_at, pv.created_at,
-            COALESCE(array_agg(DISTINCT c.slug) FILTER (WHERE c.slug IS NOT NULL), '{}') AS categories
+            pv.published_at, pv.created_at, pv.source_type, pv.allowed_media_hosts,
+            COALESCE((
+              SELECT array_agg(DISTINCT c.slug ORDER BY c.slug)
+                FROM video_categories vc
+                JOIN categories c ON c.id = vc.category_id
+               WHERE vc.video_id = pv.id
+            ), '{}') AS categories
        FROM public_videos pv
-       LEFT JOIN video_categories vc ON vc.video_id = pv.id
-       LEFT JOIN categories c ON c.id = vc.category_id
        ${clause}
-       GROUP BY pv.id, pv.slug, pv.title, pv.description, pv.duration_seconds,
-                pv.media_mode, pv.media_url, pv.thumbnail_url, pv.attribution_text,
-                pv.published_at, pv.created_at
        ORDER BY pv.published_at DESC NULLS LAST, pv.created_at DESC
        LIMIT ${limitParam} OFFSET ${offsetParam}`,
     values,
   );
 
-  return { items: result.rows, limit, offset };
+  return { items: result.rows.map(sanitizePublicVideo), limit, offset };
 });
 
 app.get('/api/videos/:slug', async (request, reply) => {
   const { slug } = z.object({ slug: z.string().min(1).max(180) }).parse(request.params);
   const result = await pool.query(
-    `SELECT pv.*, COALESCE(array_agg(DISTINCT c.slug) FILTER (WHERE c.slug IS NOT NULL), '{}') AS categories
+    `SELECT pv.*,
+            COALESCE((
+              SELECT array_agg(DISTINCT c.slug ORDER BY c.slug)
+                FROM video_categories vc
+                JOIN categories c ON c.id = vc.category_id
+               WHERE vc.video_id = pv.id
+            ), '{}') AS categories
        FROM public_videos pv
-       LEFT JOIN video_categories vc ON vc.video_id = pv.id
-       LEFT JOIN categories c ON c.id = vc.category_id
-      WHERE pv.slug = $1
-      GROUP BY pv.id, pv.slug, pv.title, pv.description, pv.duration_seconds,
-               pv.media_mode, pv.media_url, pv.thumbnail_url, pv.attribution_text,
-               pv.published_at, pv.created_at`,
+      WHERE pv.slug = $1`,
     [slug],
   );
   if (!result.rowCount) return reply.code(404).send({ error: 'not_found' });
-  return result.rows[0];
+  return sanitizePublicVideo(result.rows[0]);
 });
 
 const reportSchema = z.object({
