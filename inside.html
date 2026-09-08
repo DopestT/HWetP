@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Inside — H-W-P</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="flow-bg"></div>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/inside.html"><span class="brand-mark"></span><span>H-W-P</span></a>
+      <div class="tagline">Inside</div>
+      <nav class="nav">
+        <a href="#latest">Latest</a>
+        <a href="#trending">Trending</a>
+        <button class="logout" id="logout">Log out</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell inside">
+    <div class="inside-head">
+      <div>
+        <h1 class="inside-title">Inside.</h1>
+        <div class="inside-sub">Flows different over here.</div>
+      </div>
+      <input class="search" type="search" placeholder="Search Inside" aria-label="Search Inside">
+    </div>
+
+    <div class="chips" aria-label="Inside categories">
+      <span class="chip active">For You</span><span class="chip">Newest</span><span class="chip">Trending</span><span class="chip">Creators</span><span class="chip">Saved</span><span class="chip">History</span><span class="chip">Following</span><span class="chip">Live soon</span>
+    </div>
+
+    <section class="hero-video">
+      <div class="hero-video-copy">
+        <div class="pill"><span class="dot"></span> FEATURED INSIDE</div>
+        <h2>The feed is the home.</h2>
+        <p>The separate tube identity is gone. This space is where H-W-P members discover, watch, save and return.</p>
+        <a class="btn btn-primary" href="#latest">Start watching</a>
+      </div>
+    </section>
+
+    <section class="feed-section" id="latest">
+      <h3>Latest</h3>
+      <div class="video-grid">
+        <article class="video-card"><div class="thumb"><span class="duration">08:14</span></div><div class="video-name">Fresh Inside</div><div class="video-meta">New · H-W-P</div></article>
+        <article class="video-card"><div class="thumb"><span class="duration">12:03</span></div><div class="video-name">Just Added</div><div class="video-meta">New · H-W-P</div></article>
+        <article class="video-card"><div class="thumb"><span class="duration">05:47</span></div><div class="video-name">Flow Pick</div><div class="video-meta">Recommended</div></article>
+        <article class="video-card"><div class="thumb"><span class="duration">09:31</span></div><div class="video-name">Member Favorite</div><div class="video-meta">Popular now</div></article>
+      </div>
+    </section>
+
+    <section class="feed-section" id="trending">
+      <h3>Trending Inside</h3>
+      <div class="video-grid">
+        <article class="video-card"><div class="thumb"><span class="duration">14:02</span></div><div class="video-name">Trending #1</div><div class="video-meta">Rising now</div></article>
+        <article class="video-card"><div class="thumb"><span class="duration">07:26</span></div><div class="video-name">Trending #2</div><div class="video-meta">Most watched</div></article>
+        <article class="video-card"><div class="thumb"><span class="duration">10:18</span></div><div class="video-name">Trending #3</div><div class="video-meta">Member pick</div></article>
+        <article class="video-card"><div class="thumb"><span class="duration">06:55</span></div><div class="video-name">Trending #4</div><div class="video-meta">Moving fast</div></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner"><span>H-W-P Inside · 18+</span><span><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span></div>
+  </footer>
+
+  <script>
+    const session=localStorage.getItem('hwp_member_session');
+    if(!session){location.replace('/login.html');}
+    document.getElementById('logout').addEventListener('click',()=>{localStorage.removeItem('hwp_member_session');location.replace('/')});
+    document.querySelector('.search').addEventListener('input',(e)=>{
+      const q=e.target.value.trim().toLowerCase();
+      document.querySelectorAll('.video-card').forEach(card=>{card.style.display=!q||card.innerText.toLowerCase().includes(q)?'block':'none'});
+    });
+    document.querySelectorAll('.chip').forEach(chip=>chip.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));chip.classList.add('active')}));
+  </script>
+</body>
+</html>
