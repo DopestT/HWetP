@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Access H-W-P</title>
+  <meta name="description" content="Log in or join H-W-P to go Inside.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="flow-bg"></div>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/"><span class="brand-mark"></span><span>H-W-P</span></a>
+      <div class="tagline">Flows different over here</div>
+      <nav class="nav"><a href="/">Back</a></nav>
+    </div>
+  </header>
+
+  <main class="shell auth-wrap">
+    <section class="auth-card" aria-labelledby="accessTitle">
+      <div class="eyebrow">18+ member access</div>
+      <h1 id="accessTitle">Go Inside.</h1>
+      <p id="modeCopy">Log in and your next screen is H-W-P Inside.</p>
+
+      <form id="accessForm">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" minlength="6" required>
+        </div>
+        <label class="check">
+          <input id="adult" type="checkbox" required>
+          <span>I confirm that I am at least 18 years old and agree to the <a href="/terms.html" style="text-decoration:underline">Terms</a>.</span>
+        </label>
+        <button class="btn btn-primary" type="submit" id="submitBtn">Log in → Inside</button>
+      </form>
+
+      <div class="auth-alt">
+        <button id="toggleMode" style="border:0;background:transparent;color:#8ff9ee;cursor:pointer;font-weight:800">New here? Create access</button>
+      </div>
+      <div class="micro" style="text-align:center;margin-top:18px">Current static gate is the UI shell for the production auth connection.</div>
+    </section>
+  </main>
+
+  <script>
+    const form=document.getElementById('accessForm');
+    const submit=document.getElementById('submitBtn');
+    const toggle=document.getElementById('toggleMode');
+    const copy=document.getElementById('modeCopy');
+    let join=location.hash==='#join';
+
+    function render(){
+      submit.textContent=join?'Create access → Inside':'Log in → Inside';
+      toggle.textContent=join?'Already have access? Log in':'New here? Create access';
+      copy.textContent=join?'Create your H-W-P access. Your first destination is Inside.':'Log in and your next screen is H-W-P Inside.';
+      document.getElementById('password').setAttribute('autocomplete',join?'new-password':'current-password');
+    }
+    toggle.addEventListener('click',()=>{join=!join;history.replaceState(null,'',join?'#join':'#login');render()});
+    form.addEventListener('submit',(event)=>{
+      event.preventDefault();
+      const email=document.getElementById('email').value.trim();
+      if(!email||!document.getElementById('adult').checked)return;
+      localStorage.setItem('hwp_member_session',JSON.stringify({email,adult:true,created:Date.now(),mode:join?'join':'login'}));
+      location.href='/inside.html';
+    });
+    render();
+  </script>
+</body>
+</html>
