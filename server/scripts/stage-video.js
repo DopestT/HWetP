@@ -2,10 +2,21 @@ import 'dotenv/config';
 import pg from 'pg';
 
 const { Pool } = pg;
-const [sourceId, externalId, slug, title, mediaMode, mediaUrl, thumbnailUrl = ''] = process.argv.slice(2);
+const [
+  sourceId,
+  externalId,
+  slug,
+  title,
+  mediaMode,
+  mediaUrl,
+  thumbnailUrl = '',
+  consentReference = '',
+  rightsReference = '',
+  attributionText = '',
+] = process.argv.slice(2);
 
 if (!sourceId || !externalId || !slug || !title || !mediaMode || !mediaUrl) {
-  console.error('Usage: node scripts/stage-video.js <sourceId> <externalId> <slug> <title> <embed|remote_stream|licensed_hosted> <mediaUrl> [thumbnailUrl]');
+  console.error('Usage: node scripts/stage-video.js <sourceId> <externalId> <slug> <title> <embed|remote_stream|licensed_hosted> <mediaUrl> [thumbnailUrl] [consentReference] [rightsReference] [attributionText]');
   process.exit(1);
 }
 
@@ -50,23 +61,29 @@ try {
 
   const result = await pool.query(
     `INSERT INTO videos
-      (source_id, external_id, slug, title, media_mode, media_url, thumbnail_url, moderation_status)
-     VALUES ($1, $2, $3, $4, $5, $6, NULLIF($7, ''), 'pending')
+      (source_id, external_id, slug, title, media_mode, media_url, thumbnail_url,
+       consent_reference, rights_reference, attribution_text, moderation_status)
+     VALUES ($1, $2, $3, $4, $5, $6, NULLIF($7, ''), NULLIF($8, ''), NULLIF($9, ''), NULLIF($10, ''), 'pending')
      ON CONFLICT (source_id, external_id) DO UPDATE SET
        slug = EXCLUDED.slug,
        title = EXCLUDED.title,
        media_mode = EXCLUDED.media_mode,
        media_url = EXCLUDED.media_url,
        thumbnail_url = EXCLUDED.thumbnail_url,
+       consent_reference = COALESCE(EXCLUDED.consent_reference, videos.consent_reference),
+       rights_reference = COALESCE(EXCLUDED.rights_reference, videos.rights_reference),
+       attribution_text = COALESCE(EXCLUDED.attribution_text, videos.attribution_text),
        moderation_status = 'pending',
        is_removed = false,
-       removal_reason = NULL
-     RETURNING id, slug, title, moderation_status, created_at, updated_at`,
-    [sourceId, externalId, slug, title, mediaMode, safeMediaUrl, safeThumbnailUrl],
+       removal_reason = NULL,
+       moderated_at = NULL,
+       moderated_by = NULL
+     RETURNING id, slug, title, consent_reference, rights_reference, moderation_status, created_at, updated_at`,
+    [sourceId, externalId, slug, title, mediaMode, safeMediaUrl, safeThumbnailUrl, consentReference, rightsReference, attributionText],
   );
 
   console.log(JSON.stringify({ source: source.rows[0], video: result.rows[0] }, null, 2));
-  console.error('Video staged as PENDING moderation. It cannot appear publicly until the source and the video are both explicitly approved.');
+  console.error('Video staged as PENDING moderation. Approval requires an approved source plus consent_reference and rights_reference evidence.');
 } finally {
   await pool.end();
 }
