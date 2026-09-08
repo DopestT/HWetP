@@ -31,10 +31,26 @@ services:
     build:
       context: ..
     restart: unless-stopped
-    ports:
-      - "127.0.0.1:8080:80"
     depends_on:
       - api
 
+  caddy:
+    image: caddy:2.8-alpine
+    restart: unless-stopped
+    environment:
+      ACME_EMAIL: ${ACME_EMAIL:?ACME_EMAIL is required}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+
 volumes:
   herwet_db:
+  caddy_data:
+  caddy_config:
