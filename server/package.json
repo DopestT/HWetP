@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
+    "test": "node --test",
     "register-source": "node scripts/register-source.js",
     "stage-video": "node scripts/stage-video.js"
   },
