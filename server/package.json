@@ -12,6 +12,7 @@
     "test": "node --test",
     "register-source": "node scripts/register-source.js",
     "stage-video": "node scripts/stage-video.js",
+    "moderation-queue": "node scripts/moderation-queue.js",
     "moderate-source": "node scripts/moderate-source.js",
     "moderate-video": "node scripts/moderate-video.js"
   },
