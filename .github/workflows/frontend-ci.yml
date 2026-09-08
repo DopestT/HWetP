@@ -1,4 +1,4 @@
-name: HERWET Frontend CI
+name: HERWET Production CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,7 +16,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm install
-      - name: Build
+      - name: Build frontend
         run: npm run build
+      - name: Install API dependencies
+        working-directory: server
+        run: npm install
+      - name: Check API syntax
+        working-directory: server
+        run: node --check src/server.js
