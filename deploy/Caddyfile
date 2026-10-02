@@ -1,0 +1,16 @@
+{
+  email {$ACME_EMAIL}
+}
+
+www.herwet.com {
+  redir https://herwet.com{uri} permanent
+}
+
+herwet.net, herwet.video, herwet.me, herwet.online {
+  redir https://herwet.com{uri} permanent
+}
+
+herwet.com {
+  encode zstd gzip
+  reverse_proxy web:80
+}
