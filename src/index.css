@@ -1,0 +1,284 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 60% 4%;
+    --foreground: 192 35% 87%;
+    --card: 212 55% 7%;
+    --card-foreground: 192 35% 87%;
+    --popover: 212 55% 7%;
+    --popover-foreground: 192 35% 87%;
+    --primary: 187 100% 50%;
+    --primary-foreground: 210 60% 4%;
+    --secondary: 205 25% 30%;
+    --secondary-foreground: 192 35% 87%;
+    --muted: 210 30% 14%;
+    --muted-foreground: 195 25% 70%;
+    --accent: 187 100% 50%;
+    --accent-foreground: 210 60% 4%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 192 35% 87%;
+    --border: 205 25% 30%;
+    --input: 205 25% 30%;
+    --ring: 187 100% 50%;
+    --radius: 0.25rem;
+    --font-heading: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --abyss: #040B14;
+    --cyan: #00F2FF;
+    --seafoam: #D1E8ED;
+    --titanium: #3A4D5C;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    background-color: var(--abyss);
+    margin: 0;
+    min-width: 320px;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection {
+    background-color: rgba(0, 242, 255, 0.25);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .font-heading { font-family: var(--font-heading); }
+  .font-display { font-family: var(--font-display); }
+  .font-mono { font-family: var(--font-mono); }
+
+  .text-abyss { color: var(--abyss); }
+  .bg-abyss { background-color: var(--abyss); }
+  .text-cyan { color: var(--cyan); }
+  .bg-cyan { background-color: var(--cyan); }
+  .text-seafoam { color: var(--seafoam); }
+  .text-titanium { color: var(--titanium); }
+  .border-titanium { border-color: var(--titanium); }
+
+  .glass-panel {
+    background: rgba(10, 22, 38, 0.55);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(58, 77, 92, 0.5);
+  }
+
+  .isobaric-lines {
+    background-image: repeating-linear-gradient(180deg, transparent 0px, transparent 38px, rgba(58, 77, 92, 0.18) 38px, rgba(58, 77, 92, 0.18) 39px);
+  }
+
+  .cyan-glow {
+    box-shadow: 0 0 24px rgba(0, 242, 255, 0.35), 0 0 60px rgba(0, 242, 255, 0.12);
+  }
+
+  .text-glow { text-shadow: 0 0 18px rgba(0, 242, 255, 0.45); }
+
+  .chrome-wordmark {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.055em;
+    line-height: 0.8;
+    background: linear-gradient(180deg, #ffffff 0%, #dce7ed 22%, #6f818d 48%, #f8fbfd 67%, #7b8c97 84%, #ffffff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.35);
+    text-shadow: 0 0 10px rgba(255,255,255,0.35), 0 0 26px rgba(0,242,255,0.18), 0 10px 28px rgba(0,0,0,0.65);
+    filter: drop-shadow(0 0 18px rgba(220,245,255,0.15));
+  }
+
+  .heading-display {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 800;
+    line-height: 0.92;
+  }
+
+  .sonar-cursor { cursor: none; }
+
+  @media (hover: none), (pointer: coarse) {
+    .sonar-cursor { cursor: auto; }
+  }
+
+  .water-plasma-field {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: #020812;
+  }
+
+  .water-depth-gradient {
+    position: absolute;
+    inset: -12%;
+    background: radial-gradient(circle at 48% 16%, rgba(0, 242, 255, 0.08), transparent 32%), linear-gradient(180deg, #061526 0%, #03101d 38%, #020812 100%);
+  }
+
+  .water-blob {
+    position: absolute;
+    border-radius: 48% 52% 57% 43% / 42% 44% 56% 58%;
+    filter: blur(82px) saturate(125%);
+    mix-blend-mode: screen;
+    will-change: transform, border-radius, opacity;
+  }
+
+  .water-blob-a {
+    width: min(68vw, 900px);
+    height: min(68vw, 900px);
+    left: -12vw;
+    top: 2vh;
+    opacity: 0.33;
+    background: radial-gradient(circle at 42% 42%, rgba(0, 242, 255, 0.42), rgba(0, 135, 158, 0.16) 44%, transparent 72%);
+    animation: waterFlowA 19s ease-in-out infinite alternate;
+  }
+
+  .water-blob-b {
+    width: min(74vw, 980px);
+    height: min(74vw, 980px);
+    right: -18vw;
+    top: 24vh;
+    opacity: 0.27;
+    background: radial-gradient(circle at 50% 44%, rgba(59, 205, 219, 0.34), rgba(0, 90, 115, 0.13) 48%, transparent 73%);
+    animation: waterFlowB 24s ease-in-out infinite alternate;
+  }
+
+  .water-blob-c {
+    width: min(60vw, 760px);
+    height: min(60vw, 760px);
+    left: 28vw;
+    bottom: -20vh;
+    opacity: 0.24;
+    background: radial-gradient(circle at 45% 40%, rgba(123, 238, 242, 0.28), rgba(0, 116, 136, 0.12) 48%, transparent 72%);
+    animation: waterFlowC 22s ease-in-out infinite alternate;
+  }
+
+  .water-blob-d {
+    width: min(44vw, 620px);
+    height: min(44vw, 620px);
+    left: 44vw;
+    top: -10vh;
+    opacity: 0.16;
+    background: radial-gradient(circle at 48% 48%, rgba(180, 249, 255, 0.34), rgba(0, 202, 218, 0.08) 52%, transparent 74%);
+    animation: waterFlowD 16s ease-in-out infinite alternate;
+  }
+
+  .water-caustics {
+    position: absolute;
+    inset: -18%;
+    opacity: 0.18;
+    filter: blur(34px);
+    mix-blend-mode: screen;
+    background: repeating-radial-gradient(ellipse at 18% 28%, rgba(255,255,255,0.10) 0 1px, transparent 2px 32px), repeating-radial-gradient(ellipse at 72% 48%, rgba(0,242,255,0.08) 0 1px, transparent 2px 42px);
+    transform: rotate(-8deg) scale(1.15);
+    animation: causticDrift 17s linear infinite;
+  }
+
+  .water-sheen {
+    position: absolute;
+    inset: -30%;
+    opacity: 0.16;
+    background: conic-gradient(from 90deg at 50% 50%, transparent 0 15%, rgba(0,242,255,0.10) 21%, transparent 31% 52%, rgba(170,249,255,0.08) 58%, transparent 68% 100%);
+    filter: blur(48px);
+    mix-blend-mode: screen;
+    animation: waterSheen 28s linear infinite;
+  }
+
+  .water-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 38%, transparent 0 30%, rgba(2,8,18,0.24) 64%, rgba(2,8,18,0.76) 100%), linear-gradient(180deg, rgba(2,8,18,0.05), rgba(2,8,18,0.34));
+  }
+
+  .water-plasma-soft { opacity: 0.72; }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .mask-fade-r {
+    -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
+  }
+
+  @keyframes sonar-ping {
+    0% { transform: scale(0.6); opacity: 0.7; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+  .animate-sonar { animation: sonar-ping 1.6s ease-out infinite; }
+
+  @keyframes waterFlowA {
+    0% { transform: translate3d(-4%, 0, 0) scale(0.98) rotate(-3deg); border-radius: 48% 52% 57% 43% / 42% 44% 56% 58%; }
+    50% { transform: translate3d(16%, 9%, 0) scale(1.12) rotate(6deg); border-radius: 58% 42% 48% 52% / 55% 38% 62% 45%; }
+    100% { transform: translate3d(5%, 21%, 0) scale(1.03) rotate(-5deg); border-radius: 41% 59% 62% 38% / 48% 61% 39% 52%; }
+  }
+
+  @keyframes waterFlowB {
+    0% { transform: translate3d(5%, -5%, 0) scale(1.02) rotate(4deg); }
+    50% { transform: translate3d(-16%, 10%, 0) scale(0.94) rotate(-7deg); }
+    100% { transform: translate3d(-3%, 24%, 0) scale(1.09) rotate(3deg); }
+  }
+
+  @keyframes waterFlowC {
+    0% { transform: translate3d(-8%, 8%, 0) scale(0.96) rotate(-4deg); }
+    50% { transform: translate3d(12%, -15%, 0) scale(1.14) rotate(8deg); }
+    100% { transform: translate3d(24%, -3%, 0) scale(1.01) rotate(-2deg); }
+  }
+
+  @keyframes waterFlowD {
+    0% { transform: translate3d(-6%, 0, 0) scale(1); }
+    100% { transform: translate3d(18%, 18%, 0) scale(1.18); }
+  }
+
+  @keyframes causticDrift {
+    0% { transform: translate3d(-3%, -2%, 0) rotate(-8deg) scale(1.15); }
+    50% { transform: translate3d(4%, 3%, 0) rotate(-5deg) scale(1.21); }
+    100% { transform: translate3d(-3%, -2%, 0) rotate(-8deg) scale(1.15); }
+  }
+
+  @keyframes waterSheen {
+    from { transform: rotate(0deg) scale(1.12); }
+    to { transform: rotate(360deg) scale(1.12); }
+  }
+
+  @media (max-width: 640px) {
+    .water-blob { filter: blur(64px) saturate(118%); }
+    .water-caustics { opacity: 0.11; filter: blur(28px); }
+    .water-sheen { opacity: 0.08; filter: blur(36px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .water-blob,
+    .water-caustics,
+    .water-sheen,
+    .animate-sonar {
+      animation: none !important;
+    }
+  }
+}
