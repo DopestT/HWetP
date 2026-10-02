@@ -101,4 +101,4 @@ The public catalog is deliberately constrained by database authorization and mod
 
 Real media should only be connected after hosting, age assurance, privacy, reporting/takedown operations, source authorization, moderation procedures, and jurisdiction-specific launch requirements are finalized.
 
-The Base44 app remains the visual reference. The `herwet-production-v1` branch and its draft pull request are the production implementation under active validation.
+The Base44 app remains the visual reference. This pull request rebases the production implementation onto the current `main` branch for validation.
